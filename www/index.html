@@ -40,7 +40,8 @@
                 <select name="clasesDocenteList" id="clasesDocenteList" onchange="refreshAlumnosGeneral();">
                 </select>
             </div>
-            <p><a href="#principal" onclick="docenteApp.empezar();" class="ui-btn ui-shadow ui-corner-all ui-icon-carat-r ui-btn-icon-right"">¡Empezar!</a></p>             
+
+            <p><a href="#principal" onclick="docenteApp.empezar();" class="ui-btn ui-shadow ui-corner-all ui-icon-carat-r ui-btn-icon-right"">¡Empezar!</a></p>          
             <div id="errorMsgPrincipal" style="color: red;"></div>
 
         </div><!-- /content -->
@@ -139,6 +140,10 @@
                     <select name="select-choice-1" id="alumnosListVideo" multiple data-native-menu="false"></select>
                 </div>
             </div>
+            <div id="esperarModal" class="modal" >
+              <img class=" " id="imagenPopup" src="img/logoEspera.gif" style="margin: auto; display: block;">
+              <h4 style="text-align: center; color: white;" id="esperarModalMensaje"></h4>
+            </div>
             <button id="btnUploadVideo" style="display: none" onclick="docenteApp.uploadVideo();">Enviar Video</button>
             <p><a href="#principal" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-icon-home ui-btn-icon-left">Inicio</a></p>
         </div><!-- /content -->
@@ -233,9 +238,11 @@
                     <ul id="ulVideo">
                     </ul>
                 </div>
+                <div class="col-2"></div>
                 <div id="verVideo" class="col-8">
 
                 </div>
+                <div class="col-2"></div>
             </div>
         </div>
 
@@ -247,17 +254,20 @@
         </div>
         <div id="imagenPopupModal" class="modal">
           <span class="close">×</span>
-          <img class="modal-content col-" id="imagenPopup">
+          <img class="modal-content col-" id="imagenPopup" >
           <div id="caption"></div>
         </div>
-        
+
         <div id="comunicadosPanel" style="width: 100%; display: none;">
         <h3>Comunicados</h3>
             <div id="comunicadosPagina" >
                 
             </div>
         </div> 
-              
+            <div id="esperarModalContenidos" class="modal" >
+              <img class=" " id="imagenPopup" src="img/logoEspera.gif" style="margin: auto; display: block;">
+              <h4 style="text-align: center; color: white;" id="esperarModalContenidosMensaje"></h4>
+            </div>              
         </div><!-- /content -->
     </div><!-- /page contenidosPage -->
 

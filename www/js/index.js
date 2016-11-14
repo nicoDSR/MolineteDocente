@@ -151,9 +151,11 @@ var uploadVideoSuccess = function(r){
     $("#alumnosListVideo").html("");
     $('.videoSlider').html(""); 
     $('#videosPanel').css("display", "none");
+    $("#esperarModal").css("display", "none");
 };
 var uploadVideoFail = function(message){
     alert('Falla en la subida de video. Motivo: ' + message);
+    $("#esperarModal").css("display", "none");
 };
 var captureVideoFail = function(e) {
     console.log("Falla en la subida de video. Motivo: "+JSON.stringify(e));
@@ -226,7 +228,6 @@ var checkAndLoadFile = function(ruta, clave){
                 }
     }
         v += "<source id='videoup' src='" + ruta + "' type='video/mp4'>";
-        v += "<source id='videoup' src='" + ruta + "' type='video/webm'>";
         v += "</video>";
         v += "<p>Título: "+videoData[clave].nombre+"</p>";
         v += "<p>Descripción: "+videoData[clave].descripcion+"</p>";
@@ -235,7 +236,9 @@ var checkAndLoadFile = function(ruta, clave){
 };
 var downloadFileAndLoad = function(nombreArchivo, clave){
     //Si no existe el archivo, primero lo descargo del servidor.
-    console.log("No existe el archivo");
+    $("#esperarModalContenidosMensaje").html("Descargando...");
+    $("#esperarModalContenidos").css("display", "block");
+    console.log("No existe el archivo, lo tiene que descargar");
     var fileTransfer = new FileTransfer();
     var uri = encodeURI(server+"/"+nombreArchivo);
     var fileURL = store + nombreArchivo;
@@ -243,12 +246,13 @@ var downloadFileAndLoad = function(nombreArchivo, clave){
         uri,
         fileURL,
         function(entry) {
+            console.log(entry.toURL());
             var v = "";
             if (deviceType == "iPhone"){
                 v += "<video width=\"100%\" height=\"auto\" autoplay controls='controls'>";
             }  
             else if (deviceType == "Android"){
-                var ext = ruta.split('.').pop();
+                var ext = nombreArchivo.split('.').pop();
                 if (ext == "MOV"){
                     v += "<video width=\"100%\" class='video-js' height=\"auto\" autoplay controls preload='auto' data-setup=\"{}\">";
                 }
@@ -257,11 +261,11 @@ var downloadFileAndLoad = function(nombreArchivo, clave){
                 }
             }            
             v += "<source id='videoup' src='" + fileURL + "' type='video/mp4'>";
-            v += "<source id='videoup' src='" + fileURL + "' type='video/webm'>";
             v += "</video>";
             v += "<p>Título: "+videoData[clave].nombre+"</p>";
             v += "<p>Descripción: "+videoData[clave].descripcion+"</p>";
             $("#verVideo").html(v);
+            $("#esperarModalContenidos").css("display", "none");
             $("video").focus();
 
         },
@@ -556,6 +560,8 @@ uploadVideo: function() {
         //Realizamos la transferencia.
         console.log(params);
         var ft = new FileTransfer();
+        $("#esperarModalMensaje").html("Subiendo el contenido...");
+        $("#esperarModal").css("display", "block");
         ft.upload(imageURI, server+"/subirVideo", uploadVideoSuccess, uploadVideoFail,
             options);
     }
@@ -605,6 +611,7 @@ sendComunicado: function(){
         alert("Falta información");
     } 
 },
+
 loadVideosDocente: function(){
     $('#imagenPanel').css("display", "none");
     $('#comunicadosPanel').css("display", "none");

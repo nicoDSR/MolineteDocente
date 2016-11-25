@@ -3,21 +3,15 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
-        <!-- <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
         <link rel="stylesheet" href="css/themes/molinete-familia-theme.css" />
         <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
         <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
         <link rel="stylesheet" href="css/docentemolinete.css" /> 
-
         <script src="js/jquery-1.11.3.min.js"></script>
         <script src="js/jquery.mobile-1.4.5.min.js"></script> 
-
         <script src="js/videojs-ie8.min.js"></script>
-        <script src="js/video.js"></script>
-        <script type="text/javascript" src="http://colegiodelosmolinos.edu.uy/conf.js"></script>        
-
+        <script src="js/video.js"></script> 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
@@ -25,267 +19,222 @@
         </script>     
 
     </head>
-<body>
-    <!-- PÁGINA PRINCIPAL DEL DOCENTE: docenteGeneral -->
-    <div data-role="page" id="docenteGeneral" >
+    <body>
+        <!-- PÁGINA PRINCIPAL DEL DOCENTE: docenteGeneral -->
+        <div data-role="page" id="docenteGeneral" >
 
-        <div data-role="header" class="ui-content" >
-            <img src="img/logo.png" style="margin:0px auto;display:block"/>
-        </div><!-- /header -->
+            <div data-role="header" class="ui-content" >
+                <img src="img/logo.png" style="margin:0px auto;display:block"/>
+            </div><!-- /header -->
 
-        <div role="main" class="ui-content">
-            <h3 id="mainTitle"> </h3>
-            <div data-role="fieldcontain">
-                <label for="clasesDocenteList" class="select"><p>Seleccione la clase</p></label>
-                <select name="clasesDocenteList" id="clasesDocenteList" onchange="refreshAlumnosGeneral();">
-                </select>
-            </div>
-
-            <p><a href="#principal" onclick="docenteApp.empezar();" class="ui-btn ui-shadow ui-corner-all ui-icon-carat-r ui-btn-icon-right"">¡Empezar!</a></p>          
-            <div id="errorMsgPrincipal" style="color: red;"></div>
-
-        </div><!-- /content -->
-    </div><!-- /page docenteGeneral -->
-
-
-    <!-- ************* PAGINA Principal #principal ************* -->
-    <div data-role="page" id="principal" >
-
-        <div data-role="header" class="ui-content" >
-            <img src="img/logo.png" style="margin:0px auto;display:block"/>
-        </div><!-- /header -->
-
-        <div role="main" class="ui-content">
-            <h2>Menú principal<h2> 
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#videoPage" data-icon="video" class="ui-btn ui-shadow ui-corner-all" >Videos</a></li>
-                    <li><a href="#imagePage" data-icon="camera" class="ui-btn ui-shadow ui-corner-all" >Imágenes</a></li>
-                </ul>
-                <ul>
-                    <li><a href="#comunicadoPage" data-icon="comment" class="ui-btn ui-shadow ui-corner-all" >Comunicados</a></li>
-                    <li><a href="#contenidosPage" data-icon="shop" class="ui-btn ui-shadow ui-corner-all" >Contenidos</a></li>    
-                </ul>            
-            </div>
-            <br><hr>
-            <p><a href="#docenteGeneral" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-icon-recycle ui-btn-icon-left" >Cambiar de Clase</a></p>
-        </div><!-- /content -->
-    </div><!-- /page PRINCIPAL -->   
-
-
-    <div data-role="page" id="login" >
-
-        <div data-role="header" class="ui-content" >
-            <img src="img/logo.png" style="margin:0px auto;display:block"/>
-        </div><!-- /header -->
-
-        <div role="main" class="ui-content">
-            <h3>Inicio de sesión</h3>
-            <p>La aplicación Molinete es para uso exclusivo de los docentes del Colegio De los Molinos.</p>
-            <p>Para poder ingresar deben solicitar el código en la Dirección.</p>
-            <hr />
-        <label for="cidocente" >Cédula de identidad:</label>
-        <input type="number" name="user" id="cidocente" placeholder="Cédula sin puntos ni guiones">
-        <output type="text" id="cidocentererror" style="color:red"></output>
-        <label for="code" >Código:</label>
-        <input type="number" name="code" id="code" placeholder="Código de diez dígitos recibido por e-mail">
-        <output type="text" id="codeerror" style="color:red"></output>
-        <hr />
-        <input type="button" value="Enviar" onclick="docenteApp.ingresar()" />
-        <div id="errorMsg" style="color: red;"></div>
-        </div>
-    </div>  
-
-
-    <div data-role="page" id="loginError" >
-
-        <div data-role="header" class="ui-content" >
-            <img src="img/logo.png" style="margin:0px auto;display:block"/>
-        </div><!-- /header -->
-
-        <div role="main" class="ui-content">
-            <h3>Inicio de sesión fallido</h3>
-            <p>Las credenciales proporcionadas no son correctas.</p>
-            <p>Seleccione "Atrás" si desea volver a intentarlo.</p>
-            <hr />
-            <a href="#login" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all">Atrás</a>
-            <input type="button" value="Salir" onclick="docenteApp.salir()" />
-        </div>
-    </div>  
-
-
-    <!-- PÁGINA DE VIDEOS: #videoPage -->
-    <div data-role="page" id="videoPage" >
-
-        <div data-role="header" class="ui-content" >
-            <img src="img/logo.png" style="margin:0px auto;display:block"/>
-        </div><!-- /header -->
-
-        <div role="main" class="ui-content">
-            <h2>Videos</h2>
-
-            <button onclick="docenteApp.captureVideo()">Grabar video</button>
-            <button onclick="docenteApp.getVideo();">Buscar videos</button><br />
-            <div id="videoArea"></div>
-
-            <div data-role="collapsible-set" data-theme="c" data-content-theme="d" id="formularioDatosVideo" style="display: none;">
-                <div data-role="collapsible" >
-                     <h3>Info Video</h3>
-                     <div id="videoInfoForm"> 
-                     </div>
+            <div role="main" class="ui-content">
+                <h3 id="mainTitle"> </h3>
+                <div data-role="fieldcontain">
+                    <label for="clasesDocenteList" class="select"><p>Seleccione la clase</p></label>
+                    <select name="clasesDocenteList" id="clasesDocenteList" onchange="refreshAlumnosGeneral();">
+                    </select>
                 </div>
-                <div data-role="collapsible" id="2daParte">
-                <h3>Alumnos</h3>
-         
-                    <select name="select-choice-1" id="alumnosListVideo" multiple data-native-menu="false"></select>
-                </div>
-            </div>
-            <div id="esperarModal" class="modal" >
-              <img class=" " id="imagenPopupEsperar" src="img/logoEspera.gif" style="margin: auto; display: block;">
-              <h4 style="text-align: center; color: white;" id="esperarModalMensaje"></h4>
-            </div>
-            <button id="btnUploadVideo" style="display: none" onclick="docenteApp.uploadVideo();">Enviar Video</button>
-            <p><a href="#principal" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-icon-home ui-btn-icon-left">Inicio</a></p>
-        </div><!-- /content -->
- 
- 
-    </div><!-- /page videoPage -->
+                <p><a href="#principal" onclick="docenteApp.empezar();" class="ui-btn ui-shadow ui-corner-all ui-icon-carat-r ui-btn-icon-right"">¡Empezar!</a></p>    
+                <div id="errorMsgPrincipal" style="color: red;"></div>
+            </div><!-- /content -->
+        </div><!-- /page docenteGeneral -->
 
 
-    <!-- PÁGINA DE IMÁGENES: #imagePage -->
-    <div data-role="page" id="imagePage" >
-
-        <div data-role="header" class="ui-content" >
-            <img src="img/logo.png" style="margin:0px auto;display:block"/>
-        </div><!-- /header -->
-
-        <div role="main" class="ui-content">
-            <h2>Imágenes</h2>
-            <button onclick="docenteApp.capturePhoto();">Capturar imagen</button>
-            <button onclick="docenteApp.getPhoto();">Buscar imágenes</button><br>
-            <img id="image" src="" style="display:none;width:100%;">
-            <div data-role="collapsible-set" data-theme="c" data-content-theme="d" id="formularioDatosImagen" style="display: none;">
-                <div data-role="collapsible" >
-                     <h3>Info Imagen</h3>
-                     <div id="imagenInfoForm">
-                     </div>
-                </div>
-                <div data-role="collapsible" >
-                <h3>Alumnos</h3>
-         
-                    <select name="select-choice-1" id="alumnosListImagen" multiple data-native-menu="false"></select>
-                </div>
-            </div>
-            <button id="btnUploadImagen" style="display: none;" onclick="docenteApp.uploadImagen();">Enviar Foto</button><br />
-
-            <p><a href="#principal" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-icon-home ui-btn-icon-left">Inicio</a></p>
-
-        </div><!-- /content -->
-    </div><!-- /page imagePage -->
-
-    <!-- PÁGINA DE COMUNICADOS: #comunicadoPage -->
-    <div data-role="page" id="comunicadoPage" data-theme="a">
-
-        <div data-role="header" class="ui-content" >
-            <img src="img/logo.png" style="margin:0px auto;display:block"/>
-        </div><!-- /header -->
-
-        <div role="main" class="ui-content">
-            <h2>Comunicados</h2>
-            <label for="comunicadoTitle">Título:</label>
-            <input type="text" name="name" id="comunicadoTitle" value="" data-clear-btn="true">
-            <label for="comunicadoContent">Contenido:</label>
-            <textarea name="textarea" id="comunicadoContent"></textarea>
-            <div data-role="collapsible-set" data-theme="c" data-content-theme="d" id="formularioDatosComunicado" >
-                <div data-role="collapsible" >
-                <h4>Alumnos</h4>
-                    <select name="select-choice-1" id="alumnosListComunicado" multiple data-native-menu="false"></select>
-                </div>
-            </div>
-            
-            <p><a id="btnSubirComunicado" href="#principal" onclick="docenteApp.sendComunicado();" class="ui-btn ui-shadow ui-corner-all" >Enviar Comunicado</a></p>
-            <hr>
-            <p><a href="#principal" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-icon-home ui-btn-icon-left">Inicio</a></p>
-
-        </div><!-- /content -->
-    </div><!-- /page comunicadoPage -->
-
-    <!-- PÁGINA DE CONTENIDOS: #contenidosPage -->
-    <div data-role="page" id="contenidosPage" data-theme="a">
-
-        <div data-role="header" class="ui-content" >
-            <img src="img/logo.png" style="margin:0px auto;display:block"/>
-        </div><!-- /header -->
-
-        <div role="main" class="ui-content">
-        <h2>Contenidos</h2>
-        <div data-role="navbar">
-            <ul>
-              <li><a href="#" data-icon="video" class="ui-btn ui-shadow ui-corner-all" onclick="docenteApp.loadVideosDocente();">Videos</a></li>
-              <li><a href="#" data-icon="camera" class="ui-btn ui-shadow ui-corner-all" onclick="docenteApp.loadImagenesDocente(); ">Imágenes</a></li>
-            </ul>
-            <ul>  
-              <li><a href="#" data-icon="comment" class="ui-btn ui-shadow ui-corner-all" onclick="docenteApp.loadComunicadosDocente()">Comunicados</a></li>
-              <li><a href="#principal" data-icon="home" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all">Inicio</a></li>
-            </ul>
-        </div>  
-        <div id="videosPanel" style="width: 100%; display: none;">
-            <h3>Videos</h3>
-            <div id="videosTexto">  
-            </div> 
-            <div class="row">
-                <div class="col-12 menu">
-                    <ul id="ulVideo">
+        <!-- ************* PAGINA Principal #principal ************* -->
+        <div data-role="page" id="principal" >
+            <div data-role="header" class="ui-content" >
+                <img src="img/logo.png" style="margin:0px auto;display:block"/>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <h2>Menú principal<h2> 
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#videoPage" data-icon="video" class="ui-btn ui-shadow ui-corner-all" >Videos</a></li>
+                        <li><a href="#imagePage" data-icon="camera" class="ui-btn ui-shadow ui-corner-all" >Imágenes</a></li>
                     </ul>
+                    <ul>
+                        <li><a href="#comunicadoPage" data-icon="comment" class="ui-btn ui-shadow ui-corner-all" >Comunicados</a></li>
+                        <li><a href="#contenidosPage" data-icon="shop" class="ui-btn ui-shadow ui-corner-all" >Contenidos</a></li>    
+                    </ul>            
                 </div>
-                <div class="col-2"></div>
-                <div id="verVideo" class="col-8">
-
+                <br><hr>
+                <p><a href="#docenteGeneral" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-icon-recycle ui-btn-icon-left" >Cambiar de Clase</a></p>
+            </div><!-- /content -->
+        </div><!-- /page PRINCIPAL -->   
+        <div data-role="page" id="login" >
+            <div data-role="header" class="ui-content" >
+                <img src="img/logo.png" style="margin:0px auto;display:block"/>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <h3>Inicio de sesión</h3>
+                <p>La aplicación Molinete es para uso exclusivo de los docentes del Colegio De los Molinos.</p>
+                <p>Para poder ingresar deben solicitar el código en la Dirección.</p>
+                <hr />
+            <label for="cidocente" >Cédula de identidad:</label>
+            <input type="number" name="user" id="cidocente" placeholder="Cédula sin puntos ni guiones">
+            <output type="text" id="cidocentererror" style="color:red"></output>
+            <label for="code" >Código:</label>
+            <input type="number" name="code" id="code" placeholder="Código de diez dígitos recibido por e-mail">
+            <output type="text" id="codeerror" style="color:red"></output>
+            <hr />
+            <input type="button" value="Enviar" onclick="docenteApp.ingresar()" />
+            <div id="errorMsg" style="color: red;"></div>
+            </div>
+        </div>  
+        <div data-role="page" id="loginError" >
+            <div data-role="header" class="ui-content" >
+                <img src="img/logo.png" style="margin:0px auto;display:block"/>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <h3>Inicio de sesión fallido</h3>
+                <p>Las credenciales proporcionadas no son correctas.</p>
+                <p>Seleccione "Atrás" si desea volver a intentarlo.</p>
+                <hr />
+                <a href="#login" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all">Atrás</a>
+                <input type="button" value="Salir" onclick="docenteApp.salir()" />
+            </div>
+        </div>  
+        <!-- PÁGINA DE VIDEOS: #videoPage -->
+        <div data-role="page" id="videoPage" >
+            <div data-role="header" class="ui-content" >
+                <img src="img/logo.png" style="margin:0px auto;display:block"/>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <h2>Videos</h2>
+                <button onclick="docenteApp.captureVideo()">Grabar video</button>
+                <button onclick="docenteApp.getVideo();">Buscar videos</button><br />
+                <div id="videoArea"></div>
+                <div data-role="collapsible-set" data-theme="c" data-content-theme="d" id="formularioDatosVideo" style="display: none;">
+                    <div data-role="collapsible" >
+                         <h3>Info Video</h3>
+                         <div id="videoInfoForm"> 
+                         </div>
+                    </div>
+                    <div data-role="collapsible" id="2daParte">
+                        <h3>Alumnos</h3>
+                        <select name="select-choice-1" id="alumnosListVideo" multiple data-native-menu="false"></select>
+                    </div>
                 </div>
-                <div class="col-2"></div>
+                <div id="esperarModal" class="modal" >
+                  <img class=" " id="imagenPopupEsperar" src="img/logoEspera.gif" style="margin: auto; display: block;">
+                  <h4 style="text-align: center; color: white;" id="esperarModalMensaje"></h4>
+                </div>
+                <button id="btnUploadVideo" style="display: none" onclick="docenteApp.uploadVideo();">Enviar Video</button>
+                <p><a href="#principal" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-icon-home ui-btn-icon-left">Inicio</a></p>
+            </div><!-- /content -->
+        </div><!-- /page videoPage -->
+        <!-- PÁGINA DE IMÁGENES: #imagePage -->
+        <div data-role="page" id="imagePage" >
+            <div data-role="header" class="ui-content" >
+                <img src="img/logo.png" style="margin:0px auto;display:block"/>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <h2>Imágenes</h2>
+                <button onclick="docenteApp.capturePhoto();">Capturar imagen</button>
+                <button onclick="docenteApp.getPhoto();">Buscar imágenes</button><br>
+                <img id="image" src="" style="display:none;width:100%;">
+                <div data-role="collapsible-set" data-theme="c" data-content-theme="d" id="formularioDatosImagen" style="display: none;">
+                    <div data-role="collapsible" >
+                        <h3>Info Imagen</h3>
+                        <div id="imagenInfoForm">
+                        </div>
+                    </div>
+                    <div data-role="collapsible" >
+                        <h3>Alumnos</h3>
+                        <select name="select-choice-1" id="alumnosListImagen" multiple data-native-menu="false"></select>
+                    </div>
+                </div>
+                <button id="btnUploadImagen" style="display: none;" onclick="docenteApp.uploadImagen();">Enviar Foto</button><br />
+                <p><a href="#principal" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-icon-home ui-btn-icon-left">Inicio</a></p>
+            </div><!-- /content -->
+        </div><!-- /page imagePage -->
+        <!-- PÁGINA DE COMUNICADOS: #comunicadoPage -->
+        <div data-role="page" id="comunicadoPage" data-theme="a">
+            <div data-role="header" class="ui-content" >
+                <img src="img/logo.png" style="margin:0px auto;display:block"/>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <h2>Comunicados</h2>
+                <label for="comunicadoTitle">Título:</label>
+                <input type="text" name="name" id="comunicadoTitle" value="" data-clear-btn="true">
+                <label for="comunicadoContent">Contenido:</label>
+                <textarea name="textarea" id="comunicadoContent"></textarea>
+                <div data-role="collapsible-set" data-theme="c" data-content-theme="d" id="formularioDatosComunicado" >
+                    <div data-role="collapsible" >
+                    <h4>Alumnos</h4>
+                        <select name="select-choice-1" id="alumnosListComunicado" multiple data-native-menu="false"></select>
+                    </div>
+                </div>
+                <p><a id="btnSubirComunicado" href="#principal" onclick="docenteApp.sendComunicado();" class="ui-btn ui-shadow ui-corner-all" >Enviar Comunicado</a></p>
+                <hr>
+                <p><a href="#principal" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-icon-home ui-btn-icon-left">Inicio</a></p>
+            </div><!-- /content -->
+        </div><!-- /page comunicadoPage -->
+        <!-- PÁGINA DE CONTENIDOS: #contenidosPage -->
+        <div data-role="page" id="contenidosPage" data-theme="a">
+            <div data-role="header" class="ui-content" >
+                <img src="img/logo.png" style="margin:0px auto;display:block"/>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+            <h2>Contenidos</h2>
+                <div data-role="navbar">
+                    <ul>
+                      <li><a href="#" data-icon="video" class="ui-btn ui-shadow ui-corner-all" onclick="docenteApp.loadVideosDocente();">Videos</a></li>
+                      <li><a href="#" data-icon="camera" class="ui-btn ui-shadow ui-corner-all" onclick="docenteApp.loadImagenesDocente(); ">Imágenes</a></li>
+                    </ul>
+                    <ul>  
+                      <li><a href="#" data-icon="comment" class="ui-btn ui-shadow ui-corner-all" onclick="docenteApp.loadComunicadosDocente()">Comunicados</a></li>
+                      <li><a href="#principal" data-icon="home" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all">Inicio</a></li>
+                    </ul>
+                </div>  
+                <div id="videosPanel" style="width: 100%; display: none;">
+                    <h3>Videos</h3>
+                    <div id="videosTexto">  
+                    </div> 
+                    <div class="row">
+                        <div class="col-12 menu">
+                            <ul id="ulVideo">
+                            </ul>
+                        </div>
+                        <div class="col-2"></div>
+                        <div id="verVideo" class="col-8">
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+                <div id="imagenPanel" style="width: 100%; display: none;">
+                    <h3>Imágenes</h3> 
+                    <div class="imagenGaleria" >  
+                    </div>
+                </div>
+                <div id="imagenPopupModal" class="modal">
+                  <span class="close">×</span>
+                  <img class="modal-content col-" id="imagenPopup" >
+                  <div id="caption"></div>
+                </div>
+
+                <div id="comunicadosPanel" style="width: 100%; display: none;">
+                    <h3>Comunicados</h3>
+                    <div id="comunicadosPagina" >
+                    </div>
+                </div> 
+                <div id="esperarModalContenidos" class="modal" >
+                    <img class=" " id="imagenPopupEsperarContenidos" src="img/logoEspera.gif" style="margin: auto; display: block;">
+                    <h4 style="text-align: center; color: white;" id="esperarModalContenidosMensaje"></h4>
+                </div>              
+            </div><!-- /content -->
+        </div><!-- /page contenidosPage -->
+        <div data-role="page" id="paginaError" >
+            <div data-role="header" class="ui-content" >
+                <img src="img/logo.png" style="margin:0px auto;display:block"/>
+            </div><!-- /header -->
+            <div role="main" class="ui-content">
+                <h3>Error de conexión</h3>
+                <p>No se ha podido establecer la conexión con el servidor. Vuelva a intentarlo más tarde.</p>
+                <p>Disculpe las molestias.</p>
+                <hr /> 
+                <input type="button" value="Salir" onclick="docenteApp.salir()" />
             </div>
         </div>
-
-        <div id="imagenPanel" style="width: 100%; display: none;">
-            <h3>Imágenes</h3> 
-            <div class="imagenGaleria" >
-                
-            </div>
-        </div>
-        <div id="imagenPopupModal" class="modal">
-          <span class="close">×</span>
-          <img class="modal-content col-" id="imagenPopup" >
-          <div id="caption"></div>
-        </div>
-
-        <div id="comunicadosPanel" style="width: 100%; display: none;">
-        <h3>Comunicados</h3>
-            <div id="comunicadosPagina" >
-                
-            </div>
-        </div> 
-            <div id="esperarModalContenidos" class="modal" >
-              <img class=" " id="imagenPopupEsperarContenidos" src="img/logoEspera.gif" style="margin: auto; display: block;">
-              <h4 style="text-align: center; color: white;" id="esperarModalContenidosMensaje"></h4>
-            </div>              
-        </div><!-- /content -->
-    </div><!-- /page contenidosPage -->
-
-    <div data-role="page" id="paginaError" >
-
-        <div data-role="header" class="ui-content" >
-            <img src="img/logo.png" style="margin:0px auto;display:block"/>
-        </div><!-- /header -->
-
-        <div role="main" class="ui-content">
-            <h3>Error de conexión</h3>
-            <p>No se ha podido establecer la conexión con el servidor. Vuelva a intentarlo más tarde.</p>
-            <p>Disculpe las molestias.</p>
-            <hr /> 
-            <input type="button" value="Salir" onclick="docenteApp.salir()" />
-        </div>
-    </div>
-
-
-</body>
+    </body>
 </html>
